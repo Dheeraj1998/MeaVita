@@ -22,6 +22,7 @@ public class MeavitaLogin extends AppCompatActivity {
         Intent temp = new Intent(MeavitaLogin.this, MainActivity.class);
         temp.putExtra("user_id","UNDEFINED");
         startActivity(temp);
+        finish();
     }
 
     public void forgot_password(View v){

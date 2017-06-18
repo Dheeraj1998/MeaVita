@@ -1,17 +1,21 @@
 package com.example.theodhor.facebookIntegration;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.camera2.params.Face;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -32,6 +36,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
+import static android.R.attr.data;
+import static android.R.attr.duration;
+import static android.R.attr.name;
 import static android.util.Log.e;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Bundle inBundle = getIntent().getExtras();
-        String Uid = inBundle.get("user_id") + "";
+        String Uid;
+
+        try {
+            Uid = inBundle.get("user_id") + "";
+        }
+
+        catch (Exception e){
+            Uid = "UNDEFINED";
+        }
 
         if(Uid.equals("UNDEFINED")){
             callbackManager = CallbackManager.Factory.create();
@@ -92,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                                 main.putExtra("imageUrl",profilePicture.toString());
                                 startActivity(main);
                                 finish();
+
+                                Toast.makeText(getApplicationContext(), "Facebook Login is successful!", Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (MalformedURLException e) {
@@ -107,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancel() {
+                    Intent main = new Intent(MainActivity.this,MainActivity.class);
+                    startActivity(main);
+                    finish();
                 }
 
                 @Override
@@ -116,18 +136,34 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        String name = inBundle.get("name") + "";
-        String surname = inBundle.get("surname") + "";
-        String imageUrl = inBundle.get("imageUrl") + "";
-        String location = inBundle.get("location") + "";
+        String name = "", surname = "", imageUrl = "", location = "";
+
+        try {
+            name = inBundle.get("name") + "";
+            surname = inBundle.get("surname") + "";
+            imageUrl = inBundle.get("imageUrl") + "";
+            location = inBundle.get("location") + "";
+        }
+
+        catch (Exception e){
+            name = "null";
+        }
+
+        if (name.equals("null")){
+            name = "NA";
+            surname = "";
+            location = "NA";
+        }
+
+        else {
+            new MainActivity.DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
+        }
 
         TextView nameView = (TextView) findViewById(R.id.nameAndSurname);
         nameView.setText("" + name + " " + surname);
 
         TextView locationView = (TextView) findViewById(R.id.location);
         locationView.setText(location);
-
-        new MainActivity.DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
 
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
@@ -185,10 +221,76 @@ public class MainActivity extends AppCompatActivity {
                     Arrays.asList("email", "user_birthday","user_posts","user_location","user_friends")
             );
         } else {
-            LoginManager.getInstance().logOut();
-            Intent main = new Intent(MainActivity.this,MainActivity.class);
-            main.putExtra("user_id","UNDEFINED");
-            startActivity(main);
+            AlertDialog diaBox = FacebookLogout();
+            diaBox.show();
         }
+    }
+
+    public void meavita_logout(View temp){
+        AlertDialog diaBox = MeaVitalogout();
+        diaBox.show();
+    }
+
+    private AlertDialog MeaVitalogout()
+    {
+        AlertDialog log_out_dialog =new AlertDialog.Builder(this)
+                .setTitle("MeaVita Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setIcon(R.drawable.app_icon)
+
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        Intent temp = new Intent(MainActivity.this, MeavitaLogin.class);
+                        dialog.dismiss();
+                        startActivity(temp);
+                        finish();
+
+                        Toast.makeText(getApplicationContext(), "You have been logged out!", Toast.LENGTH_SHORT).show();
+                    }
+
+                })
+
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return log_out_dialog;
+    }
+
+    private AlertDialog FacebookLogout()
+    {
+        AlertDialog log_out_dialog =new AlertDialog.Builder(this)
+                .setTitle("Facebook Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setIcon(R.drawable.com_facebook_favicon_blue)
+
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        LoginManager.getInstance().logOut();
+                        Intent main = new Intent(MainActivity.this,MainActivity.class);
+                        main.putExtra("user_id","UNDEFINED");
+                        startActivity(main);
+                        finish();
+
+                        Toast.makeText(getApplicationContext(), "Facebook Logout is successful!", Toast.LENGTH_SHORT).show();
+                    }
+
+                })
+
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return log_out_dialog;
     }
 }
