@@ -3,58 +3,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/background"
+    android:orientation="vertical"
     tools:context=".MeavitaLogin">
 
     <ImageView
         android:layout_width="200dp"
         android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:src="@drawable/logo_1"
-        android:layout_gravity="center"/>
+        android:src="@drawable/logo_1" />
 
     <EditText
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:hint="USER ID"/>
+        android:layout_marginTop="56dp"
+        android:background="@drawable/rounded_rectangle"
+        android:hint="USER ID"
+        android:paddingStart="20dp" />
 
     <EditText
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:hint="PASSWORD"/>
-    
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_rectangle"
+        android:hint="PASSWORD"
+        android:paddingStart="20dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
+            android:id="@+id/sign_up_button"
+            android:onClick="open_register_page"
             android:layout_gravity="center_horizontal"
-            android:text="SIGN UP"/>
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/filled_rounded_rectangle"
+            android:text="SIGN UP"
+            android:textColor="@android:color/white" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/login_button"
             android:layout_gravity="center_horizontal"
-            android:text="LOGIN"/>
+            android:onClick="open_dashboard"
+            android:background="@drawable/rounded_rectangle"
+            android:text="LOGIN" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
+        android:onClick="forgot_password"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Forgot Password?"
-        android:layout_marginTop="40dp"
-        android:textColor="@android:color/black"/>
+        android:layout_marginTop="45dp"
+        android:text="@string/forgot_password"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>
