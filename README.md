@@ -1,11 +1,15 @@
-# MeaVita Android Application
-MeaVita is a work-in-progress application which aims to provide access to all your accounts at a single place.
+# MeaVita
+MeaVita was a work-in-progress application which aims to provide access to all your accounts at a single place.
 
 # About the company
-The app was developed as a research project for the company - Intellinects Ventures. More details about the company can be found on: http://intellinects.com
+The app was developed as a research/viability-testing project for the company - Intellinects Ventures. More details about the company can be found on: http://intellinects.com
 
 # Application screenshots
-<img src="http://i.imgur.com/gEGPbaK.png" width="49%"></img> <img src="http://i.imgur.com/ApPWKjg.png" width="49%"></img> <img src="http://i.imgur.com/fePfSUv.png" width="49%"></img> <img src="http://i.imgur.com/yaYzyri.png" width="49%"></img>
+<p align = "center"><img src="http://i.imgur.com/gEGPbaK.png" width = 32%"></img></p>
+
+<img src="http://i.imgur.com/ApPWKjg.png" width="33%"></img> 
+<img src="http://i.imgur.com/yaYzyri.png" width="33%"></img>
+<img src="http://i.imgur.com/fePfSUv.png" width="33%"></img>
 
 # Download link
 The app can be downloaded from the given link: https://drive.google.com/open?id=0B_KFChxLPJ41aldsalhObE9tRHc
