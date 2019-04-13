@@ -1,10 +1,11 @@
 # MeaVita
+<p align = "center"><img src="https://github.com/Dheeraj1998/Meavita/blob/master/app/src/main/res/drawable/app_icon.png" width = 10%"></img></p>
 MeaVita was a work-in-progress application which aims to provide access to all your accounts at a single place.
 
 # About the company
 The app was developed as a research/viability-testing project for the company - Intellinects Ventures. More details about the company can be found on: http://intellinects.com
 
-# Application screenshots
+# Screenshots
 <p align = "center"><img src="screenshots/screenshot_1.png" width = 32%"></img></p>
 
 <img src="screenshots/screenshot_2.png" width="33%"></img> 
